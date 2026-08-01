@@ -7,8 +7,10 @@
 - `requirements.txt` — 필요 패키지 목록
 
 ## 실행 방법
-같은 폴더 안에 세 파일(`app.py`, `hn24_cox_data.csv`, `requirements.txt`)을
-반드시 함께 두어야 합니다. `app.py`가 `hn24_cox_data.csv`를 상대경로로 불러옵니다.
+같은 폴더 안에 네 파일(`app.py`, `hn24_cox_data.csv`, `requirements.txt`, `README.md`)을
+반드시 함께 두어야 합니다. `app.py`는 자기 자신의 파일 위치를 기준으로
+`hn24_cox_data.csv`를 절대경로로 찾으므로, 어느 디렉토리에서 실행하든
+CSV가 app.py와 "같은 폴더"에만 있으면 정상 작동합니다.
 
 ```bash
 pip install -r requirements.txt
@@ -16,6 +18,19 @@ streamlit run app.py
 ```
 
 실행 후 브라우저에서 자동으로 열리는 주소(보통 http://localhost:8501)로 접속하면 됩니다.
+
+### Streamlit Community Cloud에 배포할 때 자주 발생하는 FileNotFoundError
+아래 항목을 순서대로 확인하세요.
+1. **GitHub 저장소에 CSV가 실제로 올라갔는지 확인** — `.gitignore` 파일에
+   `*.csv`나 `data/` 같은 규칙이 있으면 CSV가 커밋에서 자동 제외됩니다.
+   저장소 웹페이지에서 `hn24_cox_data.csv`가 눈으로 보이는지 확인하세요.
+2. **폴더 위치 확인** — `app.py`와 `hn24_cox_data.csv`가 저장소 안에서
+   정확히 같은 폴더(같은 depth)에 있어야 합니다. 하나는 루트에, 하나는
+   하위 폴더에 있으면 안 됩니다.
+3. **Streamlit Cloud의 "Main file path" 설정 확인** — 앱 배포 설정에서
+   지정한 진입점 파일 경로가 실제 `app.py` 위치와 일치하는지 확인하세요.
+4. 위를 다 확인했는데도 안 되면, "Manage app" → 하단 로그 패널에서
+   전체 traceback을 확인해 정확한 원인을 특정하세요.
 
 ## 4개 탭 구성
 1. **데이터 & Cox 회귀분석** — 실제 관측자료 기반, 비만·운동이 암 진단까지 걸리는
