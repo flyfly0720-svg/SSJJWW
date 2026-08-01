@@ -49,7 +49,7 @@ st.caption("국민건강영양조사(HN24, 2024) 자료 기반 Cox 회귀분석 
 # 찾도록 고정합니다.
 # ------------------------------------------------------------------
 APP_DIR = os.path.dirname(os.path.abspath(__file__))
-DATA_PATH = os.path.join(APP_DIR, "hn24_cox_data.csv")
+DATA_PATH = os.path.join(APP_DIR, "hn24_cox_data(2).csv")
 
 
 @st.cache_data
